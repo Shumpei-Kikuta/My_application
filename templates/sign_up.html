@@ -10,11 +10,16 @@
 {% endblock %}
 
 {% block contents %}
+{% if already %}
+  <div class="already">
+    <h1>すでにその名前は使われています．</h1>
+  </div>
+{% endif %}
 <form method="POST" action="/register" enctype="multipart/form-data">
   <label for="username">username</label>
-  <input id="username" name=username>
+  <input id="username" name=username required>
   <label for="password">password</label>
-  <input id="password" name=password type=password>
+  <input id="password" name=password type=password required>
   <input type="submit" value="登録">
 </form>
 {% endblock %}

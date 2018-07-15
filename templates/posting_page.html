@@ -12,9 +12,9 @@
 {% block contents %}
 <form method="POST" action="/posted_page" enctype="multipart/form-data">
   <label for="title">タイトル</label>
-  <input id="title" type="text" name="title" placeholder="タイトルを入力しましょう"><br>
+  <input id="title" type="text" name="title" placeholder="タイトルを入力しましょう" required><br>
   <label for="contents">内容</label>
-  <textarea id="contents" name="contents" placeholder="Write something good">
+  <textarea id="contents" name="contents" placeholder="Write something good" required>
   </textarea>
   <label for="image">今日を表す画像</label>
   <input id="image" type="file" name="image">

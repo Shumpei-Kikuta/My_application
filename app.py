@@ -19,11 +19,11 @@ login_manager.init_app(app)
 
 @login_manager.user_loader
 def load_user(id):
-    return User.query.get(id)
+    return User_table.query.get(id)
 
 
 #モデルの定義エリア
-class User(UserMixin,db.Model):
+class User_table(UserMixin,db.Model):
     id = db.Column(db.Integer,primary_key=True)
     username = db.Column(db.String(20),unique=True)
     password = db.Column(db.String(20))
@@ -48,16 +48,20 @@ def sign_up():
 
 @app.route("/register", methods=["POST"])
 def register():
-    if request.form["username"] and request.form["password"]:
-        username = request.form["username"]
-        password = request.form["password"]
-        newUser = User(username=username,password=password)
+    username = request.form["username"]
+    password = request.form["password"]
+    is_already_used_username = User_table.query.filter(User_table.username==username).first()
+    if not is_already_used_username:
+        newUser = User_table(username=username,password=password)
         db.session.add(newUser)
         db.session.commit()
         login_user(newUser,True) # ユーザが新規登録されたときは，ログイン状態にする．
         return redirect("/")
-    else:
-        return "エラーです"
+
+    else: # すでにユーザーネームが使われている場合
+        already = True
+        return render_template("/sign_up.html",already=already)
+
 
 @app.route("/sign_in")
 def sign_in():
@@ -68,7 +72,7 @@ def log_in():
     if request.form["username"] and request.form["password"]:
         posted_username = request.form["username"]
 
-        user_in_database = User.query.filter_by(username=posted_username).first()
+        user_in_database = User_table.query.filter_by(username=posted_username).first()
         if user_in_database and request.form["password"] == user_in_database.password: # 入力されたpasswordが正しい場合
             login_user(user_in_database,True)
             return redirect("/")
