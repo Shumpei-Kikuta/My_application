@@ -1,0 +1,26 @@
+{% extends "template_page.html" %}
+{% block title %}English diary{% endblock %}
+{% block head %}
+{{super()}}
+
+{% endblock %}
+
+{% block header %}
+<h1>My diary</h1>
+{% endblock %}
+
+{% block contents %}
+<form method="POST" action="/posted_page" enctype="multipart/form-data">
+  <label for="title">タイトル</label>
+  <input id="title" type="text" name="title" placeholder="タイトルを入力しましょう"><br>
+  <label for="contents">内容</label>
+  <textarea id="contents" name="contents" placeholder="Write something good">
+  </textarea>
+  <input type="submit" value="投稿">
+</form>
+
+{% endblock %}
+
+{% block footer %}
+<p><a href="/">戻る</a></p>
+{% endblock %}
