@@ -7,23 +7,48 @@
 
 {% block header %}
 <h1>English Diary</h1>
+
+  {% if current_user.is_authenticated %}
+    <nav class="logout">
+      <form method="GET" action="/logout" enctype="multipart/form-data">
+        <input type="submit" value="LOGOUT">
+      </form>
+    </nav>
+  {% else %}
+    <nav class="sign">
+      <form method="GET" action="/sign_in" enctype="multipart/form-data">
+        <input type="submit" value="LOGIN">
+      </form>
+    <form method="GET" action="/sign_up" enctype="multipart/form-data">
+      <input type="submit" value="SIGN UP">
+    </form>
+    </nav>
+  {% endif %}
+
 {% endblock %}
 
 {% block contents %}
-  <h1><a href="/posting_page">投稿画面へ</a></h1>
 
+  {% if current_user.is_authenticated %}
+  hello! you are {{current_user.username}}
+  {% else %}
+  hello! you need to log_in or sign_up
+  {% endif %}
+    <section class="post_page">
+      <h1><a href="/posting_page">投稿画面へ</a></h1>
+    </section>
 
-  <section class="past_post">
-    {% for post in all_past_post %}
-      <div class="one_post">
-        <h1>過去の投稿</h1>
-        <h2>タイトル</h2>
-        <h2>{{post.title}}</h2>
-        <h2>内容</h2>
-        <h2>{{post.contents}}</h2>
-      </div>
-    {% endfor %}
-  </section>
+    <section class="past_post">
+      <h1>過去の投稿</h1>
+      {% for post in all_past_post %}
+        <div class="one_post">
+          <h2>タイトル</h2>
+          <h2>{{post.title}}</h2>
+          <h2>内容</h2>
+          <h2>{{post.contents}}</h2>
+        </div>
+      {% endfor %}
+    </section>
 
 {% endblock %}
 
