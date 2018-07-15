@@ -35,11 +35,15 @@ class Diary_table(db.Model):
     contents = db.Column(db.String(400))
     file_path = db.Column(db.String(100))
 
+
 #ルーティングエリア
 @app.route("/")
 def home():
-    all_past_post = Diary_table.query.filter(Diary_table.id == 1)
-    return render_template("home.html",all_past_post = all_past_post)
+    if current_user.is_authenticated:
+        all_past_post = Diary_table.query.filter(Diary_table.id == current_user.id)
+        return render_template("home.html",all_past_post = all_past_post)
+    else:
+        return render_template("home.html")
 
 #rooting of sign_in and sign_up
 @app.route("/sign_up")
@@ -101,9 +105,7 @@ def post_page():
     file_path = "post_img/" + secure_filename(file.filename)
     file.save(file_path)
     #　dbのインスタンスを作成
-    # とりえあず
-    # idをみんな1にしておく
-    new_page = Diary_table(id=1,title=title, contents=contents,file_path=file_path)
+    new_page = Diary_table(id=current_user.id,title=title, contents=contents,file_path=file_path)
     # dbにインスタンスを挿入
     db.session.add(new_page)
     db.session.commit()
