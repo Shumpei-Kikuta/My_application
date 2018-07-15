@@ -27,7 +27,8 @@ class Diary_table(db.Model):
 #ルーティングエリア
 @app.route("/")
 def home():
-    return render_template("home.html")
+    all_past_post = Diary_table.query.filter(Diary_table.id == 1)
+    return render_template("home.html",all_past_post = all_past_post)
 
 @app.route("/posting_page")
 def top_page():
@@ -38,8 +39,8 @@ def post_page():
     title = request.form["title"]
     contents = request.form["contents"]
     #　dbのインスタンスを作成
-    とりえあず
-    idをみんな1にしておく
+    # とりえあず
+    # idをみんな1にしておく
     new_page = Diary_table(id=1,title=title, contents=contents)
     # dbにインスタンスを挿入
     db.session.add(new_page)
