@@ -1,6 +1,7 @@
 from flask import Flask,render_template,request,session, redirect, make_response,url_for
 import psycopg2
 import psycopg2.extras
+from werkzeug.utils import secure_filename
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from flask_login import LoginManager, login_user, UserMixin,logout_user,current_user
@@ -32,7 +33,7 @@ class Diary_table(db.Model):
     diary_id = db.Column(db.Integer,primary_key = True)
     title = db.Column(db.String(40))
     contents = db.Column(db.String(400))
-
+    file_path = db.Column(db.String(100))
 
 #ルーティングエリア
 @app.route("/")
@@ -40,7 +41,7 @@ def home():
     all_past_post = Diary_table.query.filter(Diary_table.id == 1)
     return render_template("home.html",all_past_post = all_past_post)
 
-#sign in sign up系のルーティング
+#rooting of sign_in and sign_up
 @app.route("/sign_up")
 def sign_up():
     return render_template("sign_up.html")
@@ -83,6 +84,7 @@ def log_out():
 
 # end sign_in or sign_up rooting
 
+# rooting of post
 @app.route("/posting_page")
 def top_page():
     return render_template("posting_page.html")
@@ -91,15 +93,18 @@ def top_page():
 def post_page():
     title = request.form["title"]
     contents = request.form["contents"]
+    file = request.files["image"]
+    file_path = "post_img/" + secure_filename(file.filename)
+    file.save(file_path)
     #　dbのインスタンスを作成
     # とりえあず
     # idをみんな1にしておく
-    new_page = Diary_table(id=1,title=title, contents=contents)
+    new_page = Diary_table(id=1,title=title, contents=contents,file_path=file_path)
     # dbにインスタンスを挿入
     db.session.add(new_page)
     db.session.commit()
     return redirect("/")
-
+# end post rooting
 
 #DBのコマンド
 @app.cli.command("initdb")
