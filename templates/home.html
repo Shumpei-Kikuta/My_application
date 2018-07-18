@@ -26,7 +26,7 @@
   {% endif %}
 
 {% block contents %}
-    <section class="post_page">
+    <section id="post_page">
       <h1>Post</h1>
       <h1><a href="/posting_page"><img src="/static/img/pencil.jpeg"></a></h1>
     </section>
@@ -39,6 +39,15 @@
         </div>
       {% endfor %}
     </section>
+
+    {% if not current_user.is_authenticated %}
+    <script>
+      document.getElementById("post_page").addEventListener("click",function(){
+        alert("You need to Log in or Sign up!")
+      })
+
+    </script>
+    {% endif %}
 
 {% endblock %}
 
