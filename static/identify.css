@@ -1,0 +1,11 @@
+label{
+  font-size: 25px;
+  display: block;
+  width: 90%;
+  text-align:center;
+}
+
+input{
+  display: block;
+  margin: auto;
+}

@@ -2,17 +2,16 @@
 {% block title %}English diary{% endblock %}
 {% block head %}
 {{super()}}
-
+<link rel="stylesheet" href="/static/home.css">
 {% endblock %}
 
-{% block header %}
-<h1>English Diary</h1>
 
   {% if current_user.is_authenticated %}
     <nav class="logout">
       <form method="GET" action="/logout" enctype="multipart/form-data">
         <input type="submit" value="LOGOUT">
       </form>
+      <p>hello! you are {{current_user.username}}</p>
     </nav>
   {% else %}
     <nav class="sign">
@@ -22,30 +21,25 @@
     <form method="GET" action="/sign_up" enctype="multipart/form-data">
       <input type="submit" value="SIGN UP">
     </form>
+    <p>hello! you need to LOGIN or SIGNUP</p>
     </nav>
   {% endif %}
 
-{% endblock %}
-
 {% block contents %}
-
-  {% if current_user.is_authenticated %}
-  hello! you are {{current_user.username}}
-  {% else %}
-  hello! you need to log_in or sign_up
-  {% endif %}
     <section class="post_page">
-      <h1><a href="/posting_page">投稿画面へ</a></h1>
+      <h1>Post</h1>
+      <h1><a href="/posting_page"><img src="/static/img/pencil.jpeg"></a></h1>
     </section>
 
     <section class="past_post">
-      <h1>過去の投稿</h1>
+      <h1>Past Post</h1>
       {% for post in all_past_post %}
         <div class="one_post">
-          <h2>タイトル</h2>
-          <h2>{{post.title}}</h2>
-          <h2>内容</h2>
-          <h2>{{post.contents}}</h2>
+          <img src="/{{post.file_path}}" alt="posted_image">
+          <!-- <h2>title</h2> -->
+          <!-- <h2>{{post.title}}</h2> -->
+          <!-- <h2>contents</h2> -->
+          <!-- <h2>{{post.contents}}</h2> -->
         </div>
       {% endfor %}
     </section>

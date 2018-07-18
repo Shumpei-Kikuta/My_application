@@ -1,29 +1,28 @@
 {% extends "template_page.html" %}
-{% block title %}English diary{% endblock %}
+{% block title %}SIGN UP{% endblock %}
 {% block head %}
 {{super()}}
-
-{% endblock %}
-
-{% block header %}
-<h1>SIGN UP</h1>
+<link rel="stylesheet" href="../static/identify.css">
 {% endblock %}
 
 {% block contents %}
 {% if already %}
   <div class="already">
-    <h1>すでにその名前は使われています．</h1>
+    <h1>I`m sorry. The entered name has been already used</h1>
   </div>
 {% endif %}
-<form method="POST" action="/register" enctype="multipart/form-data">
-  <label for="username">username</label>
-  <input id="username" name=username required>
-  <label for="password">password</label>
-  <input id="password" name=password type=password required>
-  <input type="submit" value="登録">
-</form>
+
+<section class=register>
+  <form method="POST" action="/register" enctype="multipart/form-data">
+    <label for="username">username</label>
+    <input id="username" name=username required>
+    <label for="password">password</label>
+    <input id="password" name=password type=password required>
+    <input type="submit" value="登録">
+  </form>
+</section>
 {% endblock %}
 
 {% block footer %}
-<p><a href="/">TOPへ戻る</a></p>
+<p><a href="/">Get back to TOP</a></p>
 {% endblock %}
