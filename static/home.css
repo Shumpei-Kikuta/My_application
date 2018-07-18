@@ -9,12 +9,13 @@ img{
 
 .one_post{
   float: left;
-  margin-left: 100px;
+  margin-left: 10%;
+  width: 40vw;
 }
 
 .past_post img{
-  width: 400px;
-  height: 400px;
+  width: 100%;
+  height: 100%;
 }
 
 .past_post:after{
