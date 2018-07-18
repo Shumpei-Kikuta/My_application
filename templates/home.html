@@ -11,7 +11,7 @@
       <form method="GET" action="/logout" enctype="multipart/form-data">
         <input type="submit" value="LOGOUT">
       </form>
-      <p>hello! you are {{current_user.username}}</p>
+      <p>Hello!{{current_user.username}}!</p>
     </nav>
   {% else %}
     <nav class="sign">
@@ -21,7 +21,7 @@
     <form method="GET" action="/sign_up" enctype="multipart/form-data">
       <input type="submit" value="SIGN UP">
     </form>
-    <p>hello! you need to LOGIN or SIGNUP</p>
+    <p>Hello! You need to LOGIN or SIGNUP</p>
     </nav>
   {% endif %}
 
