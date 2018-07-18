@@ -35,7 +35,8 @@
       <h1>Past Post</h1>
       {% for post in all_past_post %}
         <div class="one_post">
-          <img src="/{{post.file_path}}" alt="posted_image">
+          <form method="POST" action="/detailed_page",enctype="multipart/form-data">
+            <a href="/detailed_past_post/{{post.diary_id}}"><img src="/{{post.file_path}}" alt="posted_image"></a>
         </div>
       {% endfor %}
     </section>

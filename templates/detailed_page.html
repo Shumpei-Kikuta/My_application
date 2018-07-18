@@ -1,0 +1,17 @@
+{% extends "template_page.html" %}
+{% block title %}Sign In{% endblock %}
+{% block head %}
+{{super()}}
+<!-- <link rel="stylesheet" href="../static/identify.css"> -->
+{% endblock %}
+
+{% block contents %}
+<h1>{{page.title}}</h1>
+<p>{{page.contents}}</p>
+<h1><img src="/{{page.file_path}}" alt="image"></h1>
+
+{% endblock %}
+
+{% block footer %}
+  <a href="#" onclick="history.back(); return false;">Back</a>
+{% endblock %}

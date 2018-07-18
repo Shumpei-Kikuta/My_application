@@ -100,6 +100,9 @@ def top_page():
     else:
         return redirect("/")
 
+# end post rooting
+
+# rooting of past posted
 @app.route("/posted_page",methods=["POST"])
 def post_page():
     title = request.form["title"]
@@ -107,19 +110,23 @@ def post_page():
     file = request.files["image"]
     file_path = "static/post_img/" + secure_filename(file.filename)
     file.save(file_path)
-    #　dbのインスタンスを作成
     new_page = Diary_table(id=current_user.id,title=title, contents=contents,file_path=file_path)
-    # dbにインスタンスを挿入
     db.session.add(new_page)
     db.session.commit()
     return redirect("/")
-# end post rooting
+
+@app.route("/detailed_past_post/<int:diary_id>")
+def detailed_past_post(diary_id):
+    page = Diary_table.query.filter(Diary_table.diary_id == diary_id).first()
+    return render_template("detailed_page.html",page=page)
+
+
+# the end of past posted
 
 #DBのコマンド
 @app.cli.command("initdb")
 def initdb_command():
     db.create_all()
-
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=80)
