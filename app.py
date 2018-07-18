@@ -8,12 +8,12 @@ from flask_login import LoginManager, login_user, UserMixin,logout_user,current_
 
 app=Flask(__name__)
 # app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://localhost/diary'
+
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.secret_key = 'ufawifyagwer1742yncs1'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://localhost/diary'
 db = SQLAlchemy(app)
 migrate = Migrate(app,db)
-
 login_manager = LoginManager()
 login_manager.init_app(app)
 
@@ -95,14 +95,17 @@ def log_out():
 # rooting of post
 @app.route("/posting_page")
 def top_page():
-    return render_template("posting_page.html")
+    if current_user.is_authenticated:
+        return render_template("posting_page.html")
+    else:
+        return redirect("/")
 
 @app.route("/posted_page",methods=["POST"])
 def post_page():
     title = request.form["title"]
     contents = request.form["contents"]
     file = request.files["image"]
-    file_path = "post_img/" + secure_filename(file.filename)
+    file_path = "static/post_img/" + secure_filename(file.filename)
     file.save(file_path)
     #　dbのインスタンスを作成
     new_page = Diary_table(id=current_user.id,title=title, contents=contents,file_path=file_path)
@@ -119,4 +122,4 @@ def initdb_command():
 
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=8088)
+    app.run(host="0.0.0.0", port=80)

@@ -1,0 +1,24 @@
+
+img{
+  border-radius: 10px;
+}
+
+.past_post{
+  margin: auto;
+}
+
+.one_post{
+  float: left;
+  margin-left: 100px;
+}
+
+.past_post img{
+  width: 400px;
+  height: 400px;
+}
+
+.past_post:after{
+  content: " ";
+  display: table;
+  clear: both;
+}

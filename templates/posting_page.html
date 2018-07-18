@@ -2,27 +2,23 @@
 {% block title %}English diary{% endblock %}
 {% block head %}
 {{super()}}
-
-{% endblock %}
-
-{% block header %}
-<h1>My diary</h1>
+<link rel="stylesheet" href="../static/posting_page.css">
 {% endblock %}
 
 {% block contents %}
 <form method="POST" action="/posted_page" enctype="multipart/form-data">
-  <label for="title">タイトル</label>
-  <input id="title" type="text" name="title" placeholder="タイトルを入力しましょう" required><br>
-  <label for="contents">内容</label>
-  <textarea id="contents" name="contents" placeholder="Write something good" required>
-  </textarea>
-  <label for="image">今日を表す画像</label>
-  <input id="image" type="file" name="image">
-  <input type="submit" value="投稿">
+  <label for="title">Title</label>
+  <input id="title" type="text" name="title" placeholder="enter the title" required><br>
+  <label for="contents">Contents</label>
+  <textarea id="contents" name="contents" placeholder="Write something good" rows=5 maxlength=400 required></textarea>
+  <br><br>
+  <label for="image">Today`s Image</label><br>
+  <input id="image" type="file" name="image"><br><br>
+  <input type="submit" value="Post!">
 </form>
 
 {% endblock %}
 
 {% block footer %}
-<p><a href="/">戻る</a></p>
+<p><a href="/">Back</a></p>
 {% endblock %}

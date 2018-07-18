@@ -2,7 +2,8 @@
 <html lang="ja">
 <head>
   <meta charset="utf-8">
-  <link rel="stylesheet" href="template_style.css">
+  <meta name="viewport" content="width=device-width">
+  <link rel="stylesheet" href="/static/template_style.css">
   {% block head %}
   {% endblock %}
   <title>{% block title %}{% endblock %}</title>
@@ -10,15 +11,34 @@
 
 <body>
   <header>
-    {% block header %}
-    {% endblock %}
+    <h1>English Diary</h1>
+      {% if current_user.is_authenticated %}
+        <nav class="logout">
+          <form method="GET" action="/logout" enctype="multipart/form-data">
+            <input type="submit" value="LOGOUT">
+          </form>
+          <p>hello! you are {{current_user.username}}</p>
+        </nav>
+      {% else %}
+        <nav class="sign">
+          <form method="GET" action="/sign_in" enctype="multipart/form-data">
+            <input type="submit" value="LOGIN">
+          </form>
+        <form method="GET" action="/sign_up" enctype="multipart/form-data">
+          <input type="submit" value="SIGN UP">
+        </form>
+        <p>hello! you need to LOGIN or SIGNUP</p>
+        </nav>
+      {% endif %}
   </header>
+
   {% block contents %}
   {% endblock %}
 
   <footer>
     {% block footer %}
     {% endblock %}
+    <p>copy right by S.K.</p>
   </footer>
 
 </body>
