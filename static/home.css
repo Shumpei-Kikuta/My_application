@@ -10,7 +10,9 @@ img{
 .one_post{
   float: left;
   margin-left: 10%;
+  max-width: 440px;
   width: 40vw;
+  height:
 }
 
 .past_post img{
